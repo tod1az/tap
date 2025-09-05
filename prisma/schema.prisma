@@ -35,10 +35,10 @@ model employees {
   users      users[]
 }
 
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model itemloss {
   id         Int       @id @default(autoincrement())
   stock      Int
+  description String
   user_id    Int?
   item_id    Int
   created_at DateTime? @default(now()) @db.Timestamp(6)
