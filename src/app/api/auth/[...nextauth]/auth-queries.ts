@@ -9,6 +9,7 @@ export async function getUserByEmail(email: string) {
       id: true,
       email: true,
       password: true,
+      role: true,
       employees: {
         select: {
           name: true,

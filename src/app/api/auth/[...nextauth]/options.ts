@@ -28,7 +28,8 @@ export const authOptions: NextAuthOptions = {
           return {
             id: String(foundUser.id),
             name: foundUser.employees !== null ? foundUser.employees.name : "",
-            email
+            email,
+            role: foundUser.role
           }
         } else {
           throw Error("Not found")
