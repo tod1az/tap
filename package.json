@@ -2,18 +2,24 @@
   "name": "tap",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "bcryptjs": "^3.0.2",
     "next": "15.5.2",
     "next-auth": "^4.24.11",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "vitest": "^3.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

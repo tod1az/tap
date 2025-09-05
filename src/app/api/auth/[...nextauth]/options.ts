@@ -1,26 +1,8 @@
-import prisma from "@/lib/prisma-client";
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { JWT } from "next-auth/jwt"
-import NextAuth, { DefaultSession, User } from 'next-auth';
-
-export interface CustomAuthUser extends User {
-  id: string;
-  email: string
-  name: string
-}
-
-declare module 'next-auth' {
-  interface Session {
-    user?: CustomAuthUser & DefaultSession['user'];
-  }
-}
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    user?: CustomAuthUser;
-  }
-}
+import { CustomAuthUser } from "./types";
+import { compareHashedPassword } from "./utils";
+import { getUserByEmail } from "./auth-queries";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -37,27 +19,12 @@ export const authOptions: NextAuthOptions = {
 
         const email = credentials.email
         const password = credentials.password
-        //query db for this user 
-        const foundUser = await prisma.users.findUnique({
-          where: {
-            email: email
-          },
-          select: {
-            id: true,
-            email: true,
-            password: true,
-            employees: {
-              select: {
-                name: true,
-              }
-            }
-          }
-        })
+
+        const foundUser = await getUserByEmail(email)
+
         if (!foundUser) return null
 
-        // TODO: implement hashing a validation for the passwords
-
-        if (email === foundUser.email && password === foundUser.password) {
+        if (email === foundUser.email && compareHashedPassword(password, foundUser.password)) {
           return {
             id: String(foundUser.id),
             name: foundUser.employees !== null ? foundUser.employees.name : "",
