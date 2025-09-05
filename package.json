@@ -2,7 +2,7 @@
   "name": "tap",
   "version": "0.1.0",
   "private": true,
-  "type":"module",
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -31,7 +31,6 @@
     "eslint-config-next": "15.5.2",
     "prisma": "^6.15.0",
     "tailwindcss": "^4",
-    "tsx": "^4.20.5",
     "typescript": "^5"
   }
 }
