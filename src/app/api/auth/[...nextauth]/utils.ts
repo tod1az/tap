@@ -8,6 +8,6 @@ export async function hashPassword(password: string) {
   return hash
 }
 
-export async function compareHash(password: string, hash: string) {
+export async function compareHashedPassword(password: string, hash: string) {
   return bcrypt.compare(password, hash)
 }
