@@ -22,19 +22,6 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
     setError("")
-
-    // Simulate login process
-    setTimeout(() => {
-      if (email === "admin@empresa.com" && password === "admin123") {
-        // Store auth state (in a real app, use proper auth)
-        localStorage.setItem("isAuthenticated", "true")
-        localStorage.setItem("userRole", "admin")
-        router.push("/")
-      } else {
-        setError("Credenciales incorrectas. Contacte al administrador.")
-      }
-      setIsLoading(false)
-    }, 1000)
   }
 
   return (
