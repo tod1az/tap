@@ -1,26 +1,7 @@
 import prisma from "@/lib/prisma-client";
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { JWT } from "next-auth/jwt"
-import NextAuth, { DefaultSession, User } from 'next-auth';
-
-export interface CustomAuthUser extends User {
-  id: string;
-  email: string
-  name: string
-}
-
-declare module 'next-auth' {
-  interface Session {
-    user?: CustomAuthUser & DefaultSession['user'];
-  }
-}
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    user?: CustomAuthUser;
-  }
-}
+import { CustomAuthUser } from "./types";
 
 export const authOptions: NextAuthOptions = {
   providers: [
