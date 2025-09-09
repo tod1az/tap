@@ -1,16 +1,16 @@
-
-import type React from "react"
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Building2, AlertCircle } from "lucide-react"
 import LoginForm from "@/components/login-form"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../api/auth/[...nextauth]/options"
+import { redirect } from "next/navigation"
 
-export default function LoginPage() {
-
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions)
+  if (session) redirect("/")
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
-        {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center mb-4">
             <div className="p-3 bg-primary/10 rounded-full">
@@ -31,7 +31,6 @@ export default function LoginPage() {
           </CardContent>
         </Card>
 
-        {/* Info Card */}
         <Card className="bg-muted/50">
           <CardContent className="py-1">
             <div className="flex items-start gap-3">

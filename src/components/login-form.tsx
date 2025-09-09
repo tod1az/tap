@@ -3,12 +3,11 @@ import { Label } from "@radix-ui/react-label"
 import { AlertCircle, User, Lock } from "lucide-react"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import { redirect, useRouter } from "next/navigation"
 import z from "zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { signIn, useSession } from "next-auth/react"
-
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const loginSchema = z.object({
   email: z.email().nonempty(),
@@ -18,11 +17,6 @@ const loginSchema = z.object({
 type LoginFields = z.infer<typeof loginSchema>
 
 export default function LoginForm() {
-
-  const router = useRouter()
-  const { data: session } = useSession()
-  if (session) router.push("/")
-
 
   const {
     register,
@@ -37,9 +31,16 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema)
   })
 
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<LoginFields> = async (data) => {
-    await signIn("credentials", data).then(() => router.push("/"))
+    const result = await signIn("credentials", { ...data, redirect: false })
+    if (result?.error) {
+      setError("root", { message: "Error al iniciar sessión" })
+    }
+    if (result?.ok) {
+      router.push("/")
+    }
   }
 
   return (
@@ -50,7 +51,6 @@ export default function LoginForm() {
           <p className="text-sm text-destructive">{errors.root.message}</p>
         </div>
       )}
-
       <div className="space-y-2">
         <Label htmlFor="email">Correo Electrónico</Label>
         <div className="relative">
@@ -74,6 +74,7 @@ export default function LoginForm() {
             id="password"
             type="password"
             placeholder="••••••••"
+            autoComplete="off"
             {...register("password")}
             className="pl-10"
             required
@@ -84,6 +85,5 @@ export default function LoginForm() {
         {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}
       </Button>
     </form>
-
   )
 }

@@ -14,15 +14,15 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials): Promise<CustomAuthUser | null> {
 
-        if (!credentials) return null
-        if (!credentials.email || !credentials.password) return null
+        if (!credentials) throw Error("Missing data")
+        if (!credentials.email || !credentials.password) throw Error("Missing data")
 
         const email = credentials.email
         const password = credentials.password
 
         const foundUser = await getUserByEmail(email)
 
-        if (!foundUser) return null
+        if (!foundUser) throw Error("Not found")
 
         if (email === foundUser.email && compareHashedPassword(password, foundUser.password)) {
           return {
@@ -45,6 +45,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/",
     signOut: "/",
-    error: "/"
+    error: "/login"
   }
 }
