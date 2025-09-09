@@ -18,7 +18,6 @@ export default async function LoginPage() {
             </div>
           </div>
           <h1 className="text-2xl font-bold text-balance">Sistema de Gestión Empresarial</h1>
-          <p className="text-muted-foreground">Acceso para usuarios autorizados</p>
         </div>
 
         <Card>
