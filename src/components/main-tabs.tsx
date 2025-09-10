@@ -2,7 +2,8 @@
 
 import { AlertTriangle, FileText, Package, UserCheck, Users } from "lucide-react"
 import { useState } from "react"
-import { Tabs, TabsList, TabsTrigger } from "./ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
+import ItemsManagement from "./items/items-managment"
 
 export default function MainTabs() {
 
@@ -34,6 +35,9 @@ export default function MainTabs() {
             Mermas
           </TabsTrigger>
         </TabsList>
+        <TabsContent value="items" className="space-y-6">
+          <ItemsManagement />
+        </TabsContent>
         <div className="py-8 text-center text-muted-foreground">
           <p className="text-lg">Página de prueba - Solo navbar, tabs y título</p>
           <p className="text-sm mt-2">Tab activo: {activeModule}</p>
