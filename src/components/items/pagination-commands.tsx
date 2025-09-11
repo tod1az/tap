@@ -4,7 +4,6 @@ import { Button } from "../ui/button"
 import { useFilters } from "@/lib/hooks/useFilters"
 import { useSearchParams } from "next/navigation"
 
-
 type Props = {
   totalItems: number
 }
@@ -15,22 +14,18 @@ export default function PaginationCommands({ totalItems }: Props) {
   const itemsPerPage = 10
   const currentPage = Number(params.get("page")) ?? 1
 
-  const totalPages = Math.round(totalItems / itemsPerPage)
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
 
+  console.debug({ totalPages, startIndex, endIndex })
+
   const { nextPage, previousPage, setPage } = useFilters()
 
-  const handlePageChange = (page: number) => {
-    //set page to de query params
-    console.log(page)
-  }
+  if (totalPages <= 1) return null
 
   return (
     <div className="flex items-center justify-between space-x-2 py-4">
-      <div className="text-sm text-muted-foreground">
-        Mostrando {startIndex + 1} a {Math.min(endIndex, totalItems)} de {totalItems} items
-      </div>
       <div className="flex items-center space-x-2">
         <Button
           variant="outline"
@@ -43,7 +38,7 @@ export default function PaginationCommands({ totalItems }: Props) {
         </Button>
 
         <div className="flex items-center space-x-1">
-          {Array.from({ length: Math.round(totalItems / itemsPerPage) }, (_, i) => i + 1).map((page) => (
+          {Array.from({ length: Math.ceil(totalItems / itemsPerPage) }, (_, i) => i + 1).map((page) => (
             <Button
               key={page}
               variant={currentPage === page ? "default" : "outline"}

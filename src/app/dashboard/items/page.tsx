@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Edit, Trash2 } from "lucide-react"
-import NewItemDialog from "./new-item-dialog"
-import ItemSearchBar from "./search-bar"
 import { Item } from "@/lib/types"
-import PaginationCommands from "./pagination-commands"
 import { getAllItems, getItemsCount } from "@/lib/queries"
+import NewItemDialog from "@/components/items/new-item-dialog"
+import ItemSearchBar from "@/components/items/search-bar"
+import PaginationCommands from "@/components/items/pagination-commands"
 
 export default async function ItemsManagement() {
 

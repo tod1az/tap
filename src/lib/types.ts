@@ -1,8 +1,8 @@
 export type Item = {
   id: number;
-  codigo: string;
-  nombre: string;
-  categoria: string;
   stock: number;
-  precio: number;
-};
+  created_at: Date | null;
+  updated_at: Date | null;
+  description: string;
+  price: number;
+}
