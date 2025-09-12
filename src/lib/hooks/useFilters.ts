@@ -35,11 +35,6 @@ export function useFilters() {
       params.set("page", "1")
       router.replace(`${path}?${params.toString()}`)
     }
-    return () => {
-      params.delete("q")
-      params.delete("page")
-      router.replace(`${path}?${params.toString()}`)
-    }
   }, [])
 
   return {

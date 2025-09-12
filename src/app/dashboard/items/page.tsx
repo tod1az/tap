@@ -4,10 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Item } from "@/lib/types"
 import { getAllItems, getItemsCount } from "@/lib/queries"
 import NewItemDialog from "@/components/items/new-item-dialog"
-import ItemSearchBar from "@/components/items/search-bar"
-import PaginationCommands from "@/components/items/pagination-commands"
 import DeleteItem from "@/components/items/delete-item"
 import EditItemDialog from "@/components/items/edit-item"
+import SearchBar from "@/components/search-bar"
+import Pagination from "@/components/pagination"
 
 type SearchParams = Promise<{ q: string, page: string }>
 
@@ -32,9 +32,9 @@ export default async function ItemsManagement({ searchParams }: Props) {
         <CardDescription>Administra el inventario de items de la empresa</CardDescription>
       </CardHeader>
       <CardContent>
-        <ItemSearchBar />
+        <SearchBar />
         <ItemsTable items={items} />
-        <PaginationCommands totalItems={count} />
+        <Pagination totalItems={count} />
       </CardContent>
     </Card>
   )

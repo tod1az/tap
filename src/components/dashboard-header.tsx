@@ -8,7 +8,6 @@ export default function DashboardHeader() {
 
   const path = usePathname()
   const searchParams = useSearchParams()
-
   const queryParams = searchParams ? `?${searchParams.toString()}` : ""
 
   function pathSelected(href: string) {

@@ -1,6 +1,6 @@
 "use client"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "./ui/button"
 import { useFilters } from "@/lib/hooks/useFilters"
 import { useSearchParams } from "next/navigation"
 
@@ -8,7 +8,7 @@ type Props = {
   totalItems: number
 }
 
-export default function PaginationCommands({ totalItems }: Props) {
+export default function Pagination({ totalItems }: Props) {
 
   const params = useSearchParams()
   const itemsPerPage = 10

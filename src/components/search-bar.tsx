@@ -1,10 +1,10 @@
 "use client"
 import { Search } from "lucide-react";
-import { Input } from "../ui/input";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFilters } from "@/lib/hooks/useFilters";
+import { Input } from "./ui/input";
 
-export default function ItemSearchBar() {
+export default function SearchBar() {
 
   const [searchTerm, setSearchTerm] = useState("")
   const { setQuery } = useFilters()
