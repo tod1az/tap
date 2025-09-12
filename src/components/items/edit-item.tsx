@@ -1,5 +1,5 @@
 "use client"
-import { Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Label } from "../ui/label";
@@ -7,12 +7,16 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ItemFormData, itemSchema } from "@/lib/zod-schemas";
-import { createItemAction } from "@/lib/actions/items";
+import { EditItemFormData, EditItemSchema, itemSchema } from "@/lib/zod-schemas";
+import { Item } from "@/lib/types";
+import { updateItemAction } from "@/lib/actions/items";
 
 
+type Props = {
+  item: Item
+}
 
-export default function NewItemDialog() {
+export default function EditItemDialog({ item }: Props) {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const {
@@ -21,47 +25,43 @@ export default function NewItemDialog() {
     setError,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ItemFormData>({
-    resolver: zodResolver(itemSchema),
+  } = useForm<EditItemFormData>({
+    resolver: zodResolver(EditItemSchema),
     defaultValues: {
-      description: "",
-      stock: "",
-      price: "",
+      id: item.id,
+      description: item.description,
+      stock: String(item.stock),
+      price: String(item.price),
     },
   });
 
-  const onSubmit = async (data: ItemFormData) => {
+  const onSubmit = async (data: EditItemFormData) => {
     try {
-      await createItemAction(data)
-      reset();
-      setIsAddDialogOpen(false);
+      await updateItemAction(data)
+      handleDialogClose(false);
     } catch (error) {
       if (error instanceof Error) {
         setError("root", { message: error.message })
       }
-      setError("root", { message: "Error al crear el ítem" })
+      setError("root", { message: "Error al editar el ítem" })
     }
   };
 
   const handleDialogClose = (open: boolean) => {
     setIsAddDialogOpen(open);
-    if (!open) {
-      reset(); // Resetear el formulario al cerrar el diálogo
-    }
   };
 
   return (
     <Dialog open={isAddDialogOpen} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
-        <Button className="bg-primary hover:bg-primary/90">
-          <Plus className="h-4 w-4 mr-2" />
-          Agregar Item
+        <Button variant={"outline"} size={"sm"} >
+          <Edit className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Agregar Nuevo Item</DialogTitle>
-          <DialogDescription>Completa la información del nuevo item.</DialogDescription>
+          <DialogTitle>Editar Item</DialogTitle>
+          <DialogDescription>Edita la información del item.</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
           {errors.root &&
@@ -131,7 +131,7 @@ export default function NewItemDialog() {
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Agregando..." : "Agregar Item"}
+            {isSubmitting ? "Editando..." : "Guardar cambios"}
           </Button>
         </DialogFooter>
       </DialogContent>

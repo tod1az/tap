@@ -1,7 +1,7 @@
 "use client"
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useFilters } from "@/lib/hooks/useFilters";
 
 export default function ItemSearchBar() {
@@ -25,8 +25,9 @@ export default function ItemSearchBar() {
     setSearchTerm(e.target.value)
     debouncedSetQuery(e.target.value)
   }
-
-
+  useEffect(() => {
+    setSearchTerm("")
+  }, [])
   return (
     <div className="flex items-center space-x-2 mb-4">
       <Search className="h-4 w-4 text-muted-foreground" />

@@ -1,18 +1,26 @@
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Edit, Trash2 } from "lucide-react"
 import { Item } from "@/lib/types"
 import { getAllItems, getItemsCount } from "@/lib/queries"
 import NewItemDialog from "@/components/items/new-item-dialog"
 import ItemSearchBar from "@/components/items/search-bar"
 import PaginationCommands from "@/components/items/pagination-commands"
+import DeleteItem from "@/components/items/delete-item"
+import EditItemDialog from "@/components/items/edit-item"
 
-export default async function ItemsManagement() {
+type SearchParams = Promise<{ q: string, page: string }>
 
-  const items = await getAllItems()
-  const count = await getItemsCount()
+type Props = {
+  searchParams: SearchParams
+}
+
+export default async function ItemsManagement({ searchParams }: Props) {
+
+  const { q, page } = await searchParams
+
+  const items = await getAllItems(q, page)
+  const count = await getItemsCount(q)
 
   return (
     <Card>
@@ -32,11 +40,11 @@ export default async function ItemsManagement() {
   )
 }
 
-type Props = {
+type TableProps = {
   items: Item[]
 }
 
-function ItemsTable({ items }: Props) {
+function ItemsTable({ items }: TableProps) {
   return (
     <div className="rounded-md border">
       <Table>
@@ -57,19 +65,11 @@ function ItemsTable({ items }: Props) {
               <TableCell>
                 <Badge variant={item.stock < 10 ? "destructive" : "secondary"}>{item.stock}</Badge>
               </TableCell>
-              <TableCell>${item.price.toFixed(2)}</TableCell>
+              <TableCell>${item.price}</TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" size="sm">
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-destructive hover:text-destructive bg-transparent"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <EditItemDialog item={item} />
+                  <DeleteItem item={item} />
                 </div>
               </TableCell>
             </TableRow>
@@ -77,6 +77,5 @@ function ItemsTable({ items }: Props) {
         </TableBody>
       </Table>
     </div>
-
   )
 }

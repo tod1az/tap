@@ -15,10 +15,6 @@ export default function PaginationCommands({ totalItems }: Props) {
   const currentPage = Number(params.get("page")) ?? 1
 
   const totalPages = Math.ceil(totalItems / itemsPerPage)
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-
-  console.debug({ totalPages, startIndex, endIndex })
 
   const { nextPage, previousPage, setPage } = useFilters()
 

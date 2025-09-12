@@ -3,33 +3,170 @@ import { Prisma } from "@/generated/prisma";
 import prisma from "@/lib/prisma-client";
 
 const employeesData: Prisma.employeesCreateInput[] = [
+
   {
-    name: "Juan",
-    lastname: "Perez",
+    name: "Ana",
+    lastname: "Martínez",
     users: {
-      create: [{ email: 'juan@empresa.com', role: 'admin', password: hashPassword('Juanperez') }]
+      create: [{ email: 'ana@empresa.com', role: 'user', password: hashPassword('Anamartinez') }]
     }
   },
   {
-    name: "María",
-    lastname: "González",
+    name: "Pedro",
+    lastname: "García",
     users: {
-      create: [{ email: 'maria@empresa.com', role: 'user', password: hashPassword('Mariagonzalez'), }]
+      create: [{ email: 'pedro@empresa.com', role: 'admin', password: hashPassword('Pedrogarcia') }]
     }
   },
   {
-    name: "Carlos",
-    lastname: "López",
+    name: "Laura",
+    lastname: "Rodríguez",
     users: {
-      create: [{ email: 'carlos@empresa.com', role: 'user', password: hashPassword('Carloslopez'), }]
+      create: [{ email: 'laura@empresa.com', role: 'user', password: hashPassword('Laurarodriguez') }]
     }
   },
+  {
+    name: "Diego",
+    lastname: "Fernández",
+    users: {
+      create: [{ email: 'diego@empresa.com', role: 'user', password: hashPassword('Diegofernandez') }]
+    }
+  },
+  {
+    name: "Carmen",
+    lastname: "Sánchez",
+    users: {
+      create: [{ email: 'carmen@empresa.com', role: 'user', password: hashPassword('Carmensanchez') }]
+    }
+  },
+  {
+    name: "Roberto",
+    lastname: "Torres",
+    users: {
+      create: [{ email: 'roberto@empresa.com', role: 'admin', password: hashPassword('Robertotorres') }]
+    }
+  },
+  {
+    name: "Patricia",
+    lastname: "Ramírez",
+    users: {
+      create: [{ email: 'patricia@empresa.com', role: 'user', password: hashPassword('Patriciaramirez') }]
+    }
+  },
+  {
+    name: "Miguel",
+    lastname: "Vargas",
+    users: {
+      create: [{ email: 'miguel@empresa.com', role: 'user', password: hashPassword('Miguelvargas') }]
+    }
+  },
+  {
+    name: "Elena",
+    lastname: "Castro",
+    users: {
+      create: [{ email: 'elena@empresa.com', role: 'user', password: hashPassword('Elenacastro') }]
+    }
+  },
+  {
+    name: "Fernando",
+    lastname: "Morales",
+    users: {
+      create: [{ email: 'fernando@empresa.com', role: 'user', password: hashPassword('Fernandomorales') }]
+    }
+  },
+  {
+    name: "Lucía",
+    lastname: "Herrera",
+    users: {
+      create: [{ email: 'lucia@empresa.com', role: 'admin', password: hashPassword('Luciaherrera') }]
+    }
+  },
+  {
+    name: "Andrés",
+    lastname: "Silva",
+    users: {
+      create: [{ email: 'andres@empresa.com', role: 'user', password: hashPassword('Andressilva') }]
+    }
+  },
+  {
+    name: "Valeria",
+    lastname: "Mendoza",
+    users: {
+      create: [{ email: 'valeria@empresa.com', role: 'user', password: hashPassword('Valeriamendoza') }]
+    }
+  },
+  {
+    name: "Javier",
+    lastname: "Rojas",
+    users: {
+      create: [{ email: 'javier@empresa.com', role: 'user', password: hashPassword('Javierrojas') }]
+    }
+  },
+  {
+    name: "Sofía",
+    lastname: "Ortega",
+    users: {
+      create: [{ email: 'sofia@empresa.com', role: 'user', password: hashPassword('Sofiaortega') }]
+    }
+  },
+  {
+    name: "Alejandro",
+    lastname: "Jiménez",
+    users: {
+      create: [{ email: 'alejandro@empresa.com', role: 'user', password: hashPassword('Alejandrojimenez') }]
+    }
+  },
+  {
+    name: "Isabella",
+    lastname: "Cruz",
+    users: {
+      create: [{ email: 'isabella@empresa.com', role: 'admin', password: hashPassword('Isabellacruz') }]
+    }
+  },
+  {
+    name: "Ricardo",
+    lastname: "Vega",
+    users: {
+      create: [{ email: 'ricardo@empresa.com', role: 'user', password: hashPassword('Ricardovega') }]
+    }
+  },
+  {
+    name: "Natalia",
+    lastname: "Campos",
+    users: {
+      create: [{ email: 'natalia@empresa.com', role: 'user', password: hashPassword('Nataliacampos') }]
+    }
+  },
+  {
+    name: "Sebastián",
+    lastname: "Paredes",
+    users: {
+      create: [{ email: 'sebastian@empresa.com', role: 'user', password: hashPassword('Sebastianparedes') }]
+    }
+  }
 ]
 
 const itemsData: Prisma.itemsCreateInput[] = [
-  { description: 'Martillo', price: 1599, stock: 50 },
-  { description: 'Destornillador', price: 850, stock: 100 },
-  { description: 'Taladro', price: 8999, stock: 25 }
+  { description: 'Llave inglesa', price: 1250, stock: 40 },
+  { description: 'Sierra eléctrica', price: 15999, stock: 15 },
+  { description: 'Nivel de burbuja', price: 899, stock: 60 },
+  { description: 'Metro de medir', price: 599, stock: 80 },
+  { description: 'Alicate universal', price: 1199, stock: 45 },
+  { description: 'Pistola de calor', price: 7850, stock: 20 },
+  { description: 'Tornillos 1/4"', price: 299, stock: 200 },
+  { description: 'Clavos 2"', price: 199, stock: 500 },
+  { description: 'Pegamento industrial', price: 450, stock: 75 },
+  { description: 'Cinta métrica', price: 750, stock: 35 },
+  { description: 'Escuadra de metal', price: 650, stock: 25 },
+  { description: 'Gafas de seguridad', price: 399, stock: 90 },
+  { description: 'Guantes de trabajo', price: 299, stock: 120 },
+  { description: 'Cascos de seguridad', price: 899, stock: 40 },
+  { description: 'Escalera plegable', price: 12999, stock: 10 },
+  { description: 'Candado de seguridad', price: 799, stock: 30 },
+  { description: 'Linterna LED', price: 999, stock: 55 },
+  { description: 'Cable eléctrico 12AWG', price: 1599, stock: 100 },
+  { description: 'Interruptor simple', price: 350, stock: 150 },
+  { description: 'Enchufe doble', price: 450, stock: 85 }
 ]
 
 export async function main() {
