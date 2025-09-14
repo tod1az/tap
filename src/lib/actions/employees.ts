@@ -24,7 +24,6 @@ export async function createEmployeeAction(data: EmployeeFormData) {
 
 export async function updateEmployeeAction(data: UpdateEmployeeData) {
   const { email, role, name, lastname, password } = data
-  console.log({ name, role })
   try {
     updateEmployeeSchema.parse({ email, role, name, lastname, password })
     await checkAdmin()
