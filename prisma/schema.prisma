@@ -9,20 +9,34 @@ datasource db {
 }
 
 model assigns {
-  id         Int       @id @default(autoincrement())
-  stock      Int
-  user_id    Int
-  item_id    Int
-  date       DateTime  @default(now()) @db.Timestamp(6)
-  final_date DateTime? @db.Timestamp(6)
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at DateTime? @default(now()) @db.Timestamp(6)
-  items      items     @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "assigns_item")
-  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "assigns_user")
-
-  @@index([date], map: "idx_assigns_date")
-  @@index([item_id], map: "idx_assigns_item_id")
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(255)
+  description  String?   @db.Text
+  user_id      Int
+  start_date   DateTime  @default(now()) @db.Timestamp(6)
+  due_date     DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @default(now()) @db.Timestamp(6)
+  user         users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "assigns_user")
+  
+  @@index([start_date], map: "idx_assigns_start_date")
+  @@index([due_date], map: "idx_assigns_due_date")
   @@index([user_id], map: "idx_assigns_user_id")
+}
+
+model users {
+  id          Int        @id @default(autoincrement())
+  email       String     @unique @db.VarChar(255)
+  role        String     @default("user") @db.VarChar(50)
+  password    String     @db.VarChar(255)
+  employee_id Int?       @unique
+  created_at  DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?  @default(now()) @db.Timestamp(6)
+  assigns     assigns[]
+  itemloss    itemloss[]
+  employee    employees? @relation(fields: [employee_id], references: [id])
+  
+  @@index([email], map: "idx_users_email")
+  @@index([employee_id], map: "idx_users_employee_id")
 }
 
 model employees {
@@ -31,7 +45,7 @@ model employees {
   lastname   String    @db.VarChar(100)
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
-  users      users[]
+  user       users?
 }
 
 model itemloss {
@@ -54,7 +68,6 @@ model items {
   stock        Int            @default(0)
   created_at   DateTime?      @default(now()) @db.Timestamp(6)
   updated_at   DateTime?      @default(now()) @db.Timestamp(6)
-  assigns      assigns[]
   itemloss     itemloss[]
   stockentries stockentries[]
 }
@@ -72,18 +85,4 @@ model stockentries {
   @@index([item_id], map: "idx_stockentries_item_id")
 }
 
-model users {
-  id          Int        @id @default(autoincrement())
-  email       String     @unique @db.VarChar(255)
-  role        String     @default("user") @db.VarChar(50)
-  password    String     @db.VarChar(255)
-  employee_id Int?
-  created_at  DateTime?  @default(now()) @db.Timestamp(6)
-  updated_at  DateTime?  @default(now()) @db.Timestamp(6)
-  assigns     assigns[]
-  itemloss    itemloss[]
-  employees   employees? @relation(fields: [employee_id], references: [id], onUpdate: NoAction, map: "users_employee")
 
-  @@index([email], map: "idx_users_email")
-  @@index([employee_id], map: "idx_users_employee_id")
-}

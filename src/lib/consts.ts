@@ -10,3 +10,4 @@ export const navigationItems = [
 
 
 export const PER_PAGE = 10
+export const OFFSET = (pageNumber: string) => (+pageNumber - 1) * PER_PAGE

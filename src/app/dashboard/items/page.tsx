@@ -1,15 +1,14 @@
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Item } from "@/lib/types"
-import { getAllItems, getItemsCount } from "@/lib/queries"
+import { Item, SearchParams } from "@/lib/types"
+import { getItems, getItemsCount } from "@/lib/queries/items"
 import NewItemDialog from "@/components/items/new-item-dialog"
 import DeleteItem from "@/components/items/delete-item"
 import EditItemDialog from "@/components/items/edit-item"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
 
-type SearchParams = Promise<{ q: string, page: string }>
 
 type Props = {
   searchParams: SearchParams
@@ -19,7 +18,7 @@ export default async function ItemsManagement({ searchParams }: Props) {
 
   const { q, page } = await searchParams
 
-  const items = await getAllItems(q, page)
+  const items = await getItems(q, page)
   const count = await getItemsCount(q)
 
   return (

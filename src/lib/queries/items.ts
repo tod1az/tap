@@ -1,10 +1,9 @@
-import prisma from "./prisma-client";
-import { PER_PAGE } from "./consts";
-import { EditItemFormData, ItemFormData } from "./zod-schemas";
+import prisma from "../prisma-client";
+import { PER_PAGE, OFFSET } from "../consts";
+import { EditItemFormData, ItemFormData } from "../zod-schemas";
 
-export function getAllItems(q: string, page: string) {
-  const pageNumber = page ?? 1
-  const offset = (+pageNumber - 1) * PER_PAGE
+export function getItems(q: string, page: string) {
+  const pageNumber = page ?? "1"
 
   return prisma.items.findMany({
     where: {
@@ -13,7 +12,7 @@ export function getAllItems(q: string, page: string) {
         mode: "insensitive"
       }
     },
-    skip: offset,
+    skip: OFFSET(pageNumber),
     take: PER_PAGE,
   })
 }

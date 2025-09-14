@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { createItem, deleteItem, updateItem } from "../queries"
+import { createItem, deleteItem, updateItem } from "../queries/items"
 import { EditItemFormData, EditItemSchema, ItemFormData, itemSchema } from "../zod-schemas"
 import { checkAdmin } from "./utils"
 

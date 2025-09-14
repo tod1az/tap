@@ -1,5 +1,6 @@
 import z from "zod";
 
+//Items
 export const itemSchema = z.object({
   description: z.string().min(1, "Campo obligatorio").max(100, "No debe exceder 100 caracteres"),
   stock: z.string()
@@ -42,4 +43,14 @@ export const EditItemSchema = z.object({
 
 export type EditItemFormData = z.infer<typeof EditItemSchema>
 
+
+//Assigments
+
+export const assignmentSchema = z.object({
+  title: z.string().min(1, "Campo obligatorio").min(3, "El título debe tener al menos 3 caracteres"),
+  description: z.string().min(1, "Campo obligatorio").min(10, "La descripción debe tener al menos 10 caracteres"),
+  dueDate: z.string().min(1, "Campo obligatorio"),
+});
+
+export type AssignmentFormData = z.infer<typeof assignmentSchema>;
 
