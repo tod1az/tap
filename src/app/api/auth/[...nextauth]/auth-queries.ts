@@ -10,7 +10,7 @@ export async function getUserByEmail(email: string) {
       email: true,
       password: true,
       role: true,
-      employees: {
+      employee: {
         select: {
           name: true,
           lastname: true

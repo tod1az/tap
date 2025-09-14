@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { UserPlus } from "lucide-react";
 import { Employee } from "@/lib/types";
 import { AssignmentFormData, assignmentSchema } from "@/lib/zod-schemas";
+import { createAssignAction } from "@/lib/actions/assignments";
 
 
 type Props = {
@@ -30,9 +31,7 @@ export default function NewAssignmentModal({ employee }: Props) {
 
   const onSubmit = async (data: AssignmentFormData) => {
     try {
-      console.log("Datos de la asignación:", data);
-      console.log("Empleado:", employee);
-
+      await createAssignAction({ ...data, userId: employee.id })
       setIsAddAssignmentModalOpen(false);
       reset();
     } catch (error) {
@@ -49,14 +48,17 @@ export default function NewAssignmentModal({ employee }: Props) {
 
   return (
     <Dialog open={isAddAssignmentModalOpen} onOpenChange={handleModalClose}>
-      <Button
-        onClick={() => setIsAddAssignmentModalOpen(true)}
-        variant="outline"
-        size="sm"
-        title="Agregar asignación"
-      >
-        <UserPlus className="h-4 w-4" />
-      </Button>
+      <DialogTrigger asChild>
+        <Button
+          type="button"
+          onClick={() => setIsAddAssignmentModalOpen(true)}
+          variant="outline"
+          size="sm"
+          title="Agregar asignación"
+        >
+          <UserPlus className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Nueva Asignación</DialogTitle>
@@ -67,46 +69,50 @@ export default function NewAssignmentModal({ employee }: Props) {
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="titulo">Título</Label>
+            <Label htmlFor="title">Título</Label>
             <Input
-              id="titulo"
+              id="title"
               placeholder="Título de la asignación"
-              {...register("titulo")}
-              className={errors.titulo ? "border-red-500" : ""}
+              {...register("title")}
+              className={errors.title ? "border-red-500" : ""}
             />
-            {errors.titulo && (
-              <p className="text-sm text-red-500">{errors.titulo.message}</p>
+            {errors.title && (
+              <p className="text-sm text-red-500">{errors.title.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="descripcion">Descripción</Label>
+            <Label htmlFor="description">Descripción</Label>
             <Input
-              id="descripcion"
+              id="description"
               placeholder="Descripción detallada"
-              {...register("descripcion")}
-              className={errors.descripcion ? "border-red-500" : ""}
+              {...register("description")}
+              className={errors.description ? "border-red-500" : ""}
             />
-            {errors.descripcion && (
-              <p className="text-sm text-red-500">{errors.descripcion.message}</p>
+            {errors.description && (
+              <p className="text-sm text-red-500">{errors.description.message}</p>
             )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="fechaVencimiento">Fecha Vencimiento</Label>
+              <Label htmlFor="dueDate">Fecha Vencimiento</Label>
               <Input
-                id="fechaVencimiento"
+                id="dueDate"
                 type="date"
-                {...register("fechaVencimiento")}
-                className={errors.fechaVencimiento ? "border-red-500" : ""}
+                {...register("dueDate")}
+                className={errors.dueDate ? "border-red-500" : ""}
               />
-              {errors.fechaVencimiento && (
-                <p className="text-sm text-red-500">{errors.fechaVencimiento.message}</p>
+              {errors.dueDate && (
+                <p className="text-sm text-red-500">{errors.dueDate.message}</p>
               )}
             </div>
           </div>
-
+          {errors.root && (
+            <div className="text-sm text-red-500 bg-red-50 p-2 rounded">
+              {errors.root.message}
+            </div>
+          )}
           <DialogFooter>
             <Button
               type="button"

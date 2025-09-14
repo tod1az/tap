@@ -47,10 +47,17 @@ export type EditItemFormData = z.infer<typeof EditItemSchema>
 //Assigments
 
 export const assignmentSchema = z.object({
-  title: z.string().min(1, "Campo obligatorio").min(3, "El título debe tener al menos 3 caracteres"),
-  description: z.string().min(1, "Campo obligatorio").min(10, "La descripción debe tener al menos 10 caracteres"),
-  dueDate: z.string().min(1, "Campo obligatorio"),
+  title: z.string()
+    .min(1, "El título es obligatorio")
+    .min(3, "El título debe tener al menos 3 caracteres"),
+  description: z.string()
+    .min(1, "La descripción es obligatoria")
+    .min(10, "La descripción debe tener al menos 10 caracteres"),
+  dueDate: z.string()
+    .min(1, "La fecha de vencimiento es obligatoria"),
 });
+
+
 
 export type AssignmentFormData = z.infer<typeof assignmentSchema>;
 

@@ -78,7 +78,7 @@ function EmployeesTable({ employees }: TableProps) {
               <TableCell>{employee.created_at?.toLocaleDateString()}</TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
-                  <NewAssigmentModal />
+                  <NewAssigmentModal employee={employee} />
                   <Button variant="outline" size="sm" title="Editar empleado">
                     <Edit className="h-4 w-4" />
                   </Button>

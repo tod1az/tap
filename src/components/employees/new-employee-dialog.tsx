@@ -8,8 +8,6 @@ import { useState } from "react";
 
 export default function NewEmployeeDialog() {
 
-  function handleAddEmployee() { }
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
   return (
@@ -68,7 +66,7 @@ export default function NewEmployeeDialog() {
             />
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={handleAddEmployee}>
+            <Button type="submit" >
               Agregar Empleado
             </Button>
           </DialogFooter>

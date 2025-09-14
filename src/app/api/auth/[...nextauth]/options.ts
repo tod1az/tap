@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         if (email === foundUser.email && compareHashedPassword(password, foundUser.password)) {
           return {
             id: String(foundUser.id),
-            name: foundUser.employees !== null ? foundUser.employees.name : "",
+            name: foundUser.employee !== null ? foundUser.employee.name : "",
             email,
             role: foundUser.role
           }
@@ -43,8 +43,8 @@ export const authOptions: NextAuthOptions = {
         if (user.email) {
           const foundUser = await getUserByEmail(user.email)
           token.email = foundUser?.email
-          token.name = foundUser?.employees?.name
-          token.lastName = foundUser?.employees?.lastname
+          token.name = foundUser?.employee?.name
+          token.lastName = foundUser?.employee?.lastname
           token.role = foundUser?.role
           token.id = foundUser?.id
         }
