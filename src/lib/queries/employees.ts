@@ -59,3 +59,13 @@ export function getEmployeesCount(q: string) {
     },
   })
 }
+
+export function deleteEmployee(id: number) {
+  return prisma.employees.delete({
+    where: {
+      id
+    }
+  })
+}
+
+

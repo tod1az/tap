@@ -19,6 +19,7 @@ import NewAssigmentModal from "@/components/employees/new-assigment-modal"
 import { Edit, Trash2 } from "lucide-react"
 import { getEmployees, getEmployeesCount } from "@/lib/queries/employees"
 import { Employee, SearchParams } from "@/lib/types"
+import DeleteEmployeeModal from "@/components/employees/delete-employee-modal"
 
 type Props = {
   searchParams: SearchParams
@@ -82,34 +83,7 @@ function EmployeesTable({ employees }: TableProps) {
                   <Button variant="outline" size="sm" title="Editar empleado">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-
-                      <Button variant="outline" size="sm" title="Eliminar empleado">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          Esta acción no se puede deshacer. Se eliminará permanentemente el empleado{" "}
-                          <span className="font-semibold">
-                            {employee.name} {employee.lastname}
-                          </span>{" "}
-                          y todas sus asignaciones asociadas.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel >Cancelar</AlertDialogCancel>
-                        <AlertDialogAction
-                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                        >
-                          Eliminar Empleado
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                  <DeleteEmployeeModal employee={employee} />
                 </div>
               </TableCell>
             </TableRow>
