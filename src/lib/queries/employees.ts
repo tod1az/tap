@@ -1,5 +1,6 @@
 import prisma from "../prisma-client";
 import { OFFSET, PER_PAGE } from "../consts";
+import { hashPassword } from "@/app/api/auth/[...nextauth]/utils";
 
 export function getEmployees(q: string, page: string) {
   const pageNumber = page ?? "1"
@@ -56,6 +57,23 @@ export function getEmployeesCount(q: string) {
           }
         }
       ]
+    },
+  })
+}
+
+export function createEmployee(data: any) {
+
+  const { name, lastname, email } = data
+
+  const password = hashPassword(`${name}${lastname}`)
+
+  return prisma.employees.create({
+    data: {
+      name,
+      lastname,
+      user: {
+        create: { email, password }
+      }
     },
   })
 }

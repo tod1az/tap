@@ -33,10 +33,7 @@ model users {
   updated_at  DateTime?  @default(now()) @db.Timestamp(6)
   assigns     assigns[]
   itemloss    itemloss[]
-  employee    employees? @relation(fields: [employee_id], references: [id])
-  
-  @@index([email], map: "idx_users_email")
-  @@index([employee_id], map: "idx_users_employee_id")
+  employee    employees? @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 }
 
 model employees {
@@ -46,6 +43,10 @@ model employees {
   created_at DateTime? @default(now()) @db.Timestamp(6)
   updated_at DateTime? @default(now()) @db.Timestamp(6)
   user       users?
+
+  @@index([name], map: "idx_employees_name")
+  @@index([lastname], map: "idx_employees_lastname")
+  @@index([created_at], map: "idx_employees_created_at")
 }
 
 model itemloss {

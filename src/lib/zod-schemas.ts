@@ -61,3 +61,21 @@ export const assignmentSchema = z.object({
 
 export type AssignmentFormData = z.infer<typeof assignmentSchema>;
 
+//Employees
+
+export const employeeSchema = z.object({
+  name: z.string()
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre no puede exceder 50 caracteres")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El nombre solo puede contener letras"),
+  lastname: z.string()
+    .min(2, "El apellido debe tener al menos 2 caracteres")
+    .max(50, "El apellido no puede exceder 50 caracteres")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El apellido solo puede contener letras"),
+  email: z.email("Ingresa un email válido")
+    .min(5, "El email debe tener al menos 5 caracteres")
+});
+
+export type EmployeeFormData = z.infer<typeof employeeSchema>;
+
+

@@ -7,141 +7,141 @@ const employeesData: Prisma.employeesCreateInput[] = [
   {
     name: "Ana",
     lastname: "Martínez",
-    users: {
-      create: [{ email: 'ana@empresa.com', role: 'user', password: hashPassword('Anamartinez') }]
+    user: {
+      create: { email: 'ana@empresa.com', role: 'user', password: hashPassword('Anamartinez') }
     }
   },
   {
     name: "Pedro",
     lastname: "García",
-    users: {
-      create: [{ email: 'pedro@empresa.com', role: 'admin', password: hashPassword('Pedrogarcia') }]
+    user: {
+      create: { email: 'pedro@empresa.com', role: 'admin', password: hashPassword('Pedrogarcia') }
     }
   },
   {
     name: "Laura",
     lastname: "Rodríguez",
-    users: {
-      create: [{ email: 'laura@empresa.com', role: 'user', password: hashPassword('Laurarodriguez') }]
+    user: {
+      create: { email: 'laura@empresa.com', role: 'user', password: hashPassword('Laurarodriguez') }
     }
   },
   {
     name: "Diego",
     lastname: "Fernández",
-    users: {
-      create: [{ email: 'diego@empresa.com', role: 'user', password: hashPassword('Diegofernandez') }]
+    user: {
+      create: { email: 'diego@empresa.com', role: 'user', password: hashPassword('Diegofernandez') }
     }
   },
   {
     name: "Carmen",
     lastname: "Sánchez",
-    users: {
-      create: [{ email: 'carmen@empresa.com', role: 'user', password: hashPassword('Carmensanchez') }]
+    user: {
+      create: { email: 'carmen@empresa.com', role: 'user', password: hashPassword('Carmensanchez') }
     }
   },
   {
     name: "Roberto",
     lastname: "Torres",
-    users: {
-      create: [{ email: 'roberto@empresa.com', role: 'admin', password: hashPassword('Robertotorres') }]
+    user: {
+      create: { email: 'roberto@empresa.com', role: 'admin', password: hashPassword('Robertotorres') }
     }
   },
   {
     name: "Patricia",
     lastname: "Ramírez",
-    users: {
-      create: [{ email: 'patricia@empresa.com', role: 'user', password: hashPassword('Patriciaramirez') }]
+    user: {
+      create: { email: 'patricia@empresa.com', role: 'user', password: hashPassword('Patriciaramirez') }
     }
   },
   {
     name: "Miguel",
     lastname: "Vargas",
-    users: {
-      create: [{ email: 'miguel@empresa.com', role: 'user', password: hashPassword('Miguelvargas') }]
+    user: {
+      create: { email: 'miguel@empresa.com', role: 'user', password: hashPassword('Miguelvargas') }
     }
   },
   {
     name: "Elena",
     lastname: "Castro",
-    users: {
-      create: [{ email: 'elena@empresa.com', role: 'user', password: hashPassword('Elenacastro') }]
+    user: {
+      create: { email: 'elena@empresa.com', role: 'user', password: hashPassword('Elenacastro') }
     }
   },
   {
     name: "Fernando",
     lastname: "Morales",
-    users: {
-      create: [{ email: 'fernando@empresa.com', role: 'user', password: hashPassword('Fernandomorales') }]
+    user: {
+      create: { email: 'fernando@empresa.com', role: 'user', password: hashPassword('Fernandomorales') }
     }
   },
   {
     name: "Lucía",
     lastname: "Herrera",
-    users: {
-      create: [{ email: 'lucia@empresa.com', role: 'admin', password: hashPassword('Luciaherrera') }]
+    user: {
+      create: { email: 'lucia@empresa.com', role: 'admin', password: hashPassword('Luciaherrera') }
     }
   },
   {
     name: "Andrés",
     lastname: "Silva",
-    users: {
-      create: [{ email: 'andres@empresa.com', role: 'user', password: hashPassword('Andressilva') }]
+    user: {
+      create: { email: 'andres@empresa.com', role: 'user', password: hashPassword('Andressilva') }
     }
   },
   {
     name: "Valeria",
     lastname: "Mendoza",
-    users: {
-      create: [{ email: 'valeria@empresa.com', role: 'user', password: hashPassword('Valeriamendoza') }]
+    user: {
+      create: { email: 'valeria@empresa.com', role: 'user', password: hashPassword('Valeriamendoza') }
     }
   },
   {
     name: "Javier",
     lastname: "Rojas",
-    users: {
-      create: [{ email: 'javier@empresa.com', role: 'user', password: hashPassword('Javierrojas') }]
+    user: {
+      create: { email: 'javier@empresa.com', role: 'user', password: hashPassword('Javierrojas') }
     }
   },
   {
     name: "Sofía",
     lastname: "Ortega",
-    users: {
-      create: [{ email: 'sofia@empresa.com', role: 'user', password: hashPassword('Sofiaortega') }]
+    user: {
+      create: { email: 'sofia@empresa.com', role: 'user', password: hashPassword('Sofiaortega') }
     }
   },
   {
     name: "Alejandro",
     lastname: "Jiménez",
-    users: {
-      create: [{ email: 'alejandro@empresa.com', role: 'user', password: hashPassword('Alejandrojimenez') }]
+    user: {
+      create: { email: 'alejandro@empresa.com', role: 'user', password: hashPassword('Alejandrojimenez') }
     }
   },
   {
     name: "Isabella",
     lastname: "Cruz",
-    users: {
-      create: [{ email: 'isabella@empresa.com', role: 'admin', password: hashPassword('Isabellacruz') }]
+    user: {
+      create: { email: 'isabella@empresa.com', role: 'admin', password: hashPassword('Isabellacruz') }
     }
   },
   {
     name: "Ricardo",
     lastname: "Vega",
-    users: {
-      create: [{ email: 'ricardo@empresa.com', role: 'user', password: hashPassword('Ricardovega') }]
+    user: {
+      create: { email: 'ricardo@empresa.com', role: 'user', password: hashPassword('Ricardovega') }
     }
   },
   {
     name: "Natalia",
     lastname: "Campos",
-    users: {
-      create: [{ email: 'natalia@empresa.com', role: 'user', password: hashPassword('Nataliacampos') }]
+    user: {
+      create: { email: 'natalia@empresa.com', role: 'user', password: hashPassword('Nataliacampos') }
     }
   },
   {
     name: "Sebastián",
     lastname: "Paredes",
-    users: {
-      create: [{ email: 'sebastian@empresa.com', role: 'user', password: hashPassword('Sebastianparedes') }]
+    user: {
+      create: { email: 'sebastian@empresa.com', role: 'user', password: hashPassword('Sebastianparedes') }
     }
   }
 ]
