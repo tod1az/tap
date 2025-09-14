@@ -1,17 +1,6 @@
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
 import NewEmployeeDialog from "@/components/employees/new-employee-dialog"
