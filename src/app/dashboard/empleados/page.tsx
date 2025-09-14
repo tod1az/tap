@@ -1,14 +1,13 @@
-import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
 import NewEmployeeDialog from "@/components/employees/new-employee-dialog"
 import NewAssigmentModal from "@/components/employees/new-assigment-modal"
-import { Edit } from "lucide-react"
 import { getEmployees, getEmployeesCount } from "@/lib/queries/employees"
 import { Employee, SearchParams } from "@/lib/types"
 import DeleteEmployeeModal from "@/components/employees/delete-employee-modal"
+import UpdateEmployeeDialog from "@/components/employees/update-employee-dialog"
 
 type Props = {
   searchParams: SearchParams
@@ -69,9 +68,7 @@ function EmployeesTable({ employees }: TableProps) {
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
                   <NewAssigmentModal employee={employee} />
-                  <Button variant="outline" size="sm" title="Editar empleado">
-                    <Edit className="h-4 w-4" />
-                  </Button>
+                  <UpdateEmployeeDialog employee={employee} />
                   <DeleteEmployeeModal employee={employee} />
                 </div>
               </TableCell>
@@ -80,7 +77,6 @@ function EmployeesTable({ employees }: TableProps) {
         </TableBody>
       </Table>
     </div>
-
   )
 }
 

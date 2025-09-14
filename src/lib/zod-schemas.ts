@@ -38,7 +38,7 @@ export const EditItemSchema = z.object({
     ),
 }).refine(
   (data) => data.description || data.stock || data.price,
-  { message: "Debes modificar al menos un campo", path: ["_form"] }
+  { message: "Debes modificar al menos un campo", path: ["root"] }
 );
 
 export type EditItemFormData = z.infer<typeof EditItemSchema>
@@ -77,5 +77,36 @@ export const employeeSchema = z.object({
 });
 
 export type EmployeeFormData = z.infer<typeof employeeSchema>;
+
+
+export const updateEmployeeSchema = z.object({
+  name: z.string()
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre no puede exceder 50 caracteres")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El nombre solo puede contener letras")
+    .optional(),
+  lastname: z.string()
+    .min(2, "El apellido debe tener al menos 2 caracteres")
+    .max(50, "El apellido no puede exceder 50 caracteres")
+    .regex(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/, "El apellido solo puede contener letras")
+    .optional(),
+  email: z.email("Ingresa un email válido")
+    .min(5, "El email debe tener al menos 5 caracteres")
+    .optional(),
+  password: z.string()
+    .optional(),
+  role: z.enum(["admin", "user"])
+    .optional(),
+}).refine(
+  (data) => data.name || data.lastname || data.email || data.password || data.role,
+  { message: "Debes modificar al menos un campo", path: ["_form"] }
+);
+
+export type UpdateEmployeeFormData = z.infer<typeof updateEmployeeSchema>;
+
+export interface UpdateEmployeeData extends UpdateEmployeeFormData {
+  id: number
+}
+
 
 

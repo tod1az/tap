@@ -7,7 +7,7 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditItemFormData, EditItemSchema, itemSchema } from "@/lib/zod-schemas";
+import { EditItemFormData, EditItemSchema } from "@/lib/zod-schemas";
 import { Item } from "@/lib/types";
 import { updateItemAction } from "@/lib/actions/items";
 
@@ -24,7 +24,6 @@ export default function EditItemDialog({ item }: Props) {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<EditItemFormData>({
     resolver: zodResolver(EditItemSchema),
     defaultValues: {

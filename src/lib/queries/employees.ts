@@ -1,6 +1,7 @@
 import prisma from "../prisma-client";
 import { OFFSET, PER_PAGE } from "../consts";
 import { hashPassword } from "@/app/api/auth/[...nextauth]/utils";
+import { EmployeeFormData, UpdateEmployeeData, UpdateEmployeeFormData } from "../zod-schemas";
 
 export function getEmployees(q: string, page: string) {
   const pageNumber = page ?? "1"
@@ -61,7 +62,7 @@ export function getEmployeesCount(q: string) {
   })
 }
 
-export function createEmployee(data: any) {
+export function createEmployee(data: EmployeeFormData) {
 
   const { name, lastname, email } = data
 
@@ -75,6 +76,29 @@ export function createEmployee(data: any) {
         create: { email, password }
       }
     },
+  })
+}
+
+
+export function updateEmployee(data: UpdateEmployeeData) {
+  const { id, name, lastname, email, password, role } = data
+  return prisma.employees.update({
+    where: {
+      id
+    },
+    data: {
+      name,
+      lastname,
+      user: {
+        update: {
+          data: {
+            email,
+            password: password ? hashPassword(password) : undefined,
+            role
+          }
+        }
+      }
+    }
   })
 }
 

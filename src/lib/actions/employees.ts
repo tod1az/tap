@@ -1,9 +1,9 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { createEmployee, deleteEmployee } from "../queries/employees"
+import { createEmployee, deleteEmployee, updateEmployee } from "../queries/employees"
 import { checkAdmin } from "./utils"
-import { EmployeeFormData, employeeSchema } from "../zod-schemas"
+import { EmployeeFormData, employeeSchema, UpdateEmployeeData, updateEmployeeSchema } from "../zod-schemas"
 
 const PATH = "/dashboard/empleados"
 
@@ -12,6 +12,23 @@ export async function createEmployeeAction(data: EmployeeFormData) {
     employeeSchema.parse(data)
     await checkAdmin()
     await createEmployee(data)
+    revalidatePath(PATH)
+  } catch (err) {
+
+    if (err instanceof Error) {
+      console.log(err.message)
+    }
+    throw Error("Error al crear el empleado")
+  }
+}
+
+export async function updateEmployeeAction(data: UpdateEmployeeData) {
+  const { email, role, name, lastname, password } = data
+  console.log({ name, role })
+  try {
+    updateEmployeeSchema.parse({ email, role, name, lastname, password })
+    await checkAdmin()
+    await updateEmployee(data)
     revalidatePath(PATH)
   } catch (err) {
 
