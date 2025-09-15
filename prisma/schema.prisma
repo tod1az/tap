@@ -8,10 +8,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status{
+  pending
+  in_progress
+  completed
+}
+
 model assigns {
   id           Int       @id @default(autoincrement())
   title        String    @db.VarChar(255)
   description  String?   @db.Text
+  status       Status    @default(pending) 
   user_id      Int
   start_date   DateTime  @default(now()) @db.Timestamp(6)
   due_date     DateTime? @db.Timestamp(6)
