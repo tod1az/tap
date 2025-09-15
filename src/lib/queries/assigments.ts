@@ -2,7 +2,6 @@ import { OFFSET, PER_PAGE, StatusKey } from "../consts";
 import prisma from "../prisma-client";
 import { CreateAssignsParameters } from "../types";
 
-const assings = prisma.assigns
 
 export function createAssigment(data: CreateAssignsParameters) {
   const { title, description, dueDate, userId } = data
@@ -16,53 +15,46 @@ export function createAssigment(data: CreateAssignsParameters) {
   })
 }
 
-export function getAssings(q: string, page: string, status: string) {
-  const currentStatus = status ?? undefined
-  const query = q ?? ""
-  return assings.findMany({
+
+
+export function getAssings(q: string, page: string, status?: StatusKey) {
+  const now = Date.now()
+  return prisma.assigns.findMany({
     where: {
-      AND: [
+      OR: [
         {
-          OR: [
-            {
-              title: {
-                contains: query,
-                mode: "insensitive"
-              }
-            },
-            {
-              description: {
-                contains: query,
-                mode: "insensitive"
-              }
-            },
-            {
-              user: {
-                OR: [
-                  {
-                    employee: {
-                      name: {
-                        contains: query,
-                        mode: "insensitive"
-                      }
-                    }
-                  },
-                  {
-                    employee: {
-                      lastname: {
-                        contains: query,
-                        mode: "insensitive"
-                      }
-                    }
-                  }
-                ]
-              }
-            },
-          ]
+          title: {
+            contains: q,
+            mode: "insensitive"
+          }
         },
         {
-          status: currentStatus as StatusKey
-        }
+          description: {
+            contains: q,
+            mode: "insensitive"
+          }
+        },
+        {
+          user: {
+            employee: {
+              name: {
+                contains: q,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+        {
+          user: {
+            employee: {
+              lastname: {
+                contains: q,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+
       ]
     },
     skip: OFFSET(page),
