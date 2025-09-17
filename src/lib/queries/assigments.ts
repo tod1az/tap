@@ -1,6 +1,7 @@
-import { OFFSET, PER_PAGE, StatusKey } from "../consts";
+import { OFFSET, PER_PAGE } from "../consts";
 import prisma from "../prisma-client";
 import { CreateAssignsParameters } from "../types";
+import { FilterStatusArgs, statusFilter } from "./assigns-filter-model";
 
 const assings = prisma.assigns
 
@@ -16,8 +17,8 @@ export function createAssigment(data: CreateAssignsParameters) {
   })
 }
 
-export function getAssings(q: string, page: string, status: string) {
-  const currentStatus = status ?? undefined
+export function getAssings(q: string, page: string, status: FilterStatusArgs) {
+  const currentStatus: FilterStatusArgs = status ?? undefined
   const query = q ?? ""
   return assings.findMany({
     where: {
@@ -60,10 +61,25 @@ export function getAssings(q: string, page: string, status: string) {
             },
           ]
         },
-        {
-          status: currentStatus as StatusKey
-        }
+        statusFilter(currentStatus)
       ]
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      due_date: true,
+      status: true,
+      user: {
+        select: {
+          employee: {
+            select: {
+              name: true,
+              lastname: true
+            }
+          }
+        }
+      }
     },
     skip: OFFSET(page),
     take: PER_PAGE
