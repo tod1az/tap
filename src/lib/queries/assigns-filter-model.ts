@@ -1,6 +1,7 @@
 import { StatusKey } from "../consts";
 
-export function statusFilter(status: string) {
+export function statusFilter(status?: string) {
+  if (!status) return {}
   const now = Date.now()
   if (status === "overdue") {
     return {

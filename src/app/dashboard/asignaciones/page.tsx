@@ -2,11 +2,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
-import { getAssings } from "@/lib/queries/assigments"
+import { getAssignsByUser, getAssignsByUserCount, getAssings, getAssingsCount } from "@/lib/queries/assigments"
 import StatusFilter from "@/components/assigns/assigns-filter"
 import { SearchParams } from "@/lib/types"
 import UpdateAssign from "@/components/assigns/update-assign"
 import UpdateStatus from "@/components/assigns/update-status-select"
+import { authOptions } from "@/app/api/auth/[...nextauth]/options"
+import { getServerSession } from "next-auth"
 
 type Props = {
   searchParams: SearchParams
@@ -14,10 +16,17 @@ type Props = {
 
 export default async function AsignacionesPage({ searchParams }: Props) {
 
+  const session = await getServerSession(authOptions)
 
   const { q, page, status } = await searchParams
 
-  const assigns = await getAssings(q, page, status)
+  const assigns = session?.user?.role === "admin"
+    ? await getAssings(q, page, status)
+    : await getAssignsByUser(q, page, status, Number(session?.user?.id))
+
+  const assignsCount = session?.user?.role === "admin"
+    ? await getAssingsCount(q, status)
+    : await getAssignsByUserCount(q, status, Number(session?.user?.id))
 
   return (
     <Card>
@@ -41,7 +50,7 @@ export default async function AsignacionesPage({ searchParams }: Props) {
                 <TableHead>Descripción</TableHead>
                 <TableHead>Estado</TableHead>
                 <TableHead>Vencimiento</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
+                {session?.user?.role === "admin" && <TableHead className="text-right">Acciones</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -54,18 +63,21 @@ export default async function AsignacionesPage({ searchParams }: Props) {
                     <UpdateStatus status={assign.status} assign_id={assign.id} />
                   </TableCell>
                   <TableCell>{assign.due_date?.toLocaleDateString()}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <UpdateAssign assign={assign} />
-                    </div>
-                  </TableCell>
+                  {
+                    session?.user?.role === "admin" &&
+                    <TableCell className="text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <UpdateAssign assign={assign} />
+                      </div>
+                    </TableCell>
+                  }
                 </TableRow >
               ))
               }
             </TableBody >
           </Table >
         </div >
-        <Pagination totalItems={10} />
+        <Pagination totalItems={assignsCount} />
       </CardContent >
     </Card >
   )

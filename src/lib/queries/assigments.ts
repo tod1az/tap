@@ -18,6 +18,132 @@ export function createAssigment(data: CreateAssignsParameters) {
     }
   })
 }
+export function getAssignsByUserCount(q: string, status: string, id?: number) {
+  const currentStatus = status ?? undefined
+  const query = q ?? ""
+  return prisma.assigns.count({
+    where: {
+      AND: [
+        {
+          user: {
+            id
+          }
+        },
+        statusFilter(currentStatus)
+      ]
+      ,
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: "insensitive"
+          }
+        },
+        {
+          description: {
+            contains: query,
+            mode: "insensitive"
+          }
+        },
+        {
+          user: {
+            employee: {
+              name: {
+                contains: query,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+        {
+          user: {
+            employee: {
+              lastname: {
+                contains: query,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+      ]
+      ,
+    },
+  })
+}
+
+export function getAssignsByUser(q: string, page: string, status: string, id?: number) {
+  const currentStatus = status ?? undefined
+  const query = q ?? ""
+  const currentPage = page ?? "1"
+  return prisma.assigns.findMany({
+    where: {
+      AND: [
+        {
+          user: {
+            id
+          }
+        },
+        statusFilter(currentStatus)
+      ]
+      ,
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: "insensitive"
+          }
+        },
+        {
+          description: {
+            contains: query,
+            mode: "insensitive"
+          }
+        },
+        {
+          user: {
+            employee: {
+              name: {
+                contains: query,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+        {
+          user: {
+            employee: {
+              lastname: {
+                contains: query,
+                mode: "insensitive"
+              }
+            }
+          }
+        },
+      ]
+      ,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      due_date: true,
+      status: true,
+      user: {
+        select: {
+          id: true,
+          employee: {
+            select: {
+              name: true,
+              lastname: true
+            }
+          }
+        }
+      }
+    },
+    skip: OFFSET(currentPage),
+    take: PER_PAGE
+  })
+}
 
 export function getAssings(q: string, page: string, status: string) {
   const currentStatus = status ?? undefined
@@ -87,6 +213,55 @@ export function getAssings(q: string, page: string, status: string) {
     take: PER_PAGE
   })
 }
+
+export function getAssingsCount(q: string, status: string) {
+  const currentStatus = status ?? undefined
+  const query = q ?? ""
+  return prisma.assigns.count({
+    where: {
+      AND: [
+        {
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive"
+              }
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive"
+              }
+            },
+            {
+              user: {
+                employee: {
+                  name: {
+                    contains: query,
+                    mode: "insensitive"
+                  }
+                }
+              }
+            },
+            {
+              user: {
+                employee: {
+                  lastname: {
+                    contains: query,
+                    mode: "insensitive"
+                  }
+                }
+              }
+            },
+          ]
+        },
+        statusFilter(currentStatus)
+      ]
+    },
+  })
+}
+
 
 export function updateAssign(data: UpdateAssignForm & { assign_id: number }) {
 
