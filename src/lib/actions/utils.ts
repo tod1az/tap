@@ -10,3 +10,8 @@ export async function checkAdmin() {
 export async function auth() {
   return await getServerSession(authOptions)
 }
+
+export async function checkUser(id: string) {
+  const session = await auth()
+  if (session?.user?.id !== id) throw Error("Usuario no autorizado")
+}

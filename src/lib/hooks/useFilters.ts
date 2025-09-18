@@ -1,5 +1,6 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { StatusKey } from "../consts";
 
 export function useFilters() {
 
@@ -30,6 +31,15 @@ export function useFilters() {
     router.replace(`${path}?${params}`)
   }
 
+  function setStatus(status?: StatusKey) {
+    if (!status) {
+      params.delete("status")
+    } else {
+      params.set("status", status)
+    }
+    router.replace(`${path}?${params}`)
+  }
+
   useEffect(() => {
     if (params.get("page") === null) {
       params.set("page", "1")
@@ -41,7 +51,8 @@ export function useFilters() {
     setPage,
     nextPage,
     previousPage,
-    setQuery
+    setQuery,
+    setStatus
   }
 
 }

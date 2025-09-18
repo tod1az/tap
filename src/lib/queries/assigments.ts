@@ -1,7 +1,10 @@
 import { OFFSET, PER_PAGE } from "../consts";
 import prisma from "../prisma-client";
 import { CreateAssignsParameters } from "../types";
-import { FilterStatusArgs, statusFilter } from "./assigns-filter-model";
+import { statusFilter } from "./assigns-filter-model";
+import { Data } from "../actions/assignments";
+import { Status } from "@/generated/prisma";
+import { UpdateAssignForm } from "../zod-schemas";
 
 
 export function createAssigment(data: CreateAssignsParameters) {
@@ -16,57 +19,50 @@ export function createAssigment(data: CreateAssignsParameters) {
   })
 }
 
-<<<<<<< HEAD
-
-
-export function getAssings(q: string, page: string, status?: StatusKey) {
-  const now = Date.now()
-  return prisma.assigns.findMany({
-=======
-export function getAssings(q: string, page: string, status: FilterStatusArgs) {
-  const currentStatus: FilterStatusArgs = status ?? undefined
+export function getAssings(q: string, page: string, status: string) {
+  const currentStatus = status ?? undefined
   const query = q ?? ""
-  return assings.findMany({
->>>>>>> refs/remotes/origin/main
+  const currentPage = page ?? "1"
+  return prisma.assigns.findMany({
     where: {
-      OR: [
+      AND: [
         {
-          title: {
-            contains: q,
-            mode: "insensitive"
-          }
-        },
-<<<<<<< HEAD
-        {
-          description: {
-            contains: q,
-            mode: "insensitive"
-          }
-        },
-        {
-          user: {
-            employee: {
-              name: {
-                contains: q,
+          OR: [
+            {
+              title: {
+                contains: query,
                 mode: "insensitive"
               }
-            }
-          }
-        },
-        {
-          user: {
-            employee: {
-              lastname: {
-                contains: q,
+            },
+            {
+              description: {
+                contains: query,
                 mode: "insensitive"
               }
-            }
-          }
+            },
+            {
+              user: {
+                employee: {
+                  name: {
+                    contains: query,
+                    mode: "insensitive"
+                  }
+                }
+              }
+            },
+            {
+              user: {
+                employee: {
+                  lastname: {
+                    contains: query,
+                    mode: "insensitive"
+                  }
+                }
+              }
+            },
+          ]
         },
-
-=======
         statusFilter(currentStatus)
->>>>>>> refs/remotes/origin/main
       ]
     },
     select: {
@@ -77,6 +73,7 @@ export function getAssings(q: string, page: string, status: FilterStatusArgs) {
       status: true,
       user: {
         select: {
+          id: true,
           employee: {
             select: {
               name: true,
@@ -86,7 +83,39 @@ export function getAssings(q: string, page: string, status: FilterStatusArgs) {
         }
       }
     },
-    skip: OFFSET(page),
+    skip: OFFSET(currentPage),
     take: PER_PAGE
   })
+}
+
+export function updateAssign(data: UpdateAssignForm & { assign_id: number }) {
+
+  const { title, description, status } = data
+
+  return prisma.assigns.update({
+    where: {
+      id: data.assign_id
+    },
+    data: {
+      title: title ?? undefined,
+      description: description ?? undefined,
+      status: status === "all" ? undefined : status as Status
+    }
+  })
+
+}
+
+export function updateStatusAssign(data: Data) {
+
+  const { assign_id, status } = data
+
+  return prisma.assigns.update({
+    where: {
+      id: assign_id
+    },
+    data: {
+      status: status as Exclude<Status, "overdue">
+    }
+  })
+
 }
