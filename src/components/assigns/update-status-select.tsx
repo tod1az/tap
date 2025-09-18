@@ -33,7 +33,7 @@ export default function UpdateStatus({ status, assign_id }: Props) {
       <SelectTrigger
         className={`p-0 m-0 border ${status} hover:opacity-80 transition-opacity`}
       >
-        <Badge variant="secondary" className={`capitalize ${status}`}>
+        <Badge variant="secondary" className={`border-none capitalize ${status}`}>
           <SelectValue  >{STATUS[status]}</SelectValue>
         </Badge>
       </SelectTrigger>

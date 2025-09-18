@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
           return {
             id: String(foundUser.id),
             name: foundUser.employee !== null ? foundUser.employee.name : "",
+            lastname: foundUser.employee !== null ? foundUser.employee.lastname : "",
             email,
             role: foundUser.role
           }
@@ -44,7 +45,7 @@ export const authOptions: NextAuthOptions = {
           const foundUser = await getUserByEmail(user.email)
           token.email = foundUser?.email
           token.name = foundUser?.employee?.name
-          token.lastName = foundUser?.employee?.lastname
+          token.lastname = foundUser?.employee?.lastname
           token.role = foundUser?.role
           token.id = foundUser?.id
         }
@@ -55,6 +56,8 @@ export const authOptions: NextAuthOptions = {
       if (session?.user) {
         session.user.role = token.role as string
         session.user.id = token.id as string
+        session.user.name = token.name as string
+        session.user.lastname = token.lastname as string
       }
       return session
     }

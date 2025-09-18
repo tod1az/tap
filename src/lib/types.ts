@@ -36,6 +36,26 @@ export type Assign = {
   };
 }
 
+export type Entry = {
+  id: number
+  item: {
+    description: string;
+  };
+  stock: number;
+  created_at: Date | null;
+  price: number;
+}
+
+export type ItemLoss = {
+  id: number;
+  created_at: Date | null;
+  stock: number;
+  item: {
+    description: string;
+    price: number;
+  };
+}
+
 export type SearchParams = Promise<{ q: string, page: string, status: string }>
 
 export interface CreateAssignsParameters extends AssignmentFormData {

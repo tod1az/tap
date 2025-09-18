@@ -29,7 +29,7 @@ export default async function AsignacionesPage({ searchParams }: Props) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-row justify-between">
-          <SearchBar />
+          <SearchBar item="asignaciones" />
           <StatusFilter />
         </div>
         <div className="rounded-md border">

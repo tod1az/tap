@@ -30,7 +30,7 @@ export default async function EmpleadosPage({ searchParams }: Props) {
         <CardDescription>Administra empleados y sus asignaciones</CardDescription>
       </CardHeader>
       <CardContent>
-        <SearchBar />
+        <SearchBar item="Empleado" />
         <EmployeesTable employees={employees} />
         <Pagination totalItems={employeesCount} />
       </CardContent>

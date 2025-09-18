@@ -8,6 +8,8 @@ import DeleteItem from "@/components/items/delete-item"
 import EditItemDialog from "@/components/items/edit-item"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
+import NewEntryDialog from "@/components/items/new-entry-dialog"
+import ItemLossEntry from "@/components/items/new-loss-entry"
 
 
 type Props = {
@@ -31,7 +33,7 @@ export default async function ItemsManagement({ searchParams }: Props) {
         <CardDescription>Administra el inventario de items de la empresa</CardDescription>
       </CardHeader>
       <CardContent>
-        <SearchBar />
+        <SearchBar item="items" />
         <ItemsTable items={items} />
         <Pagination totalItems={count} />
       </CardContent>
@@ -68,6 +70,8 @@ function ItemsTable({ items }: TableProps) {
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
                   <EditItemDialog item={item} />
+                  <ItemLossEntry item={item} />
+                  <NewEntryDialog item={item} />
                   <DeleteItem item={item} />
                 </div>
               </TableCell>
