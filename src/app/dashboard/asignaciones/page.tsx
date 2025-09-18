@@ -11,7 +11,6 @@ import { getAssings } from "@/lib/queries/assigments"
 export default async function AsignacionesPage() {
 
   const assigns = await getAssings("", "1", undefined)
-  console.log(assigns)
 
   return (
     <Card>
@@ -39,14 +38,14 @@ export default async function AsignacionesPage() {
               {assigns.map((assign) => (
                 <TableRow key={assign.id}>
                   <TableCell className="font-medium">{assign.title}</TableCell>
-                  <TableCell>{assign.name}</TableCell>
+                  <TableCell>{`${assign.user.employee?.name} ${assign.user.employee?.lastname}`}</TableCell>
                   <TableCell className="max-w-xs truncate">{assign.description}</TableCell>
                   <TableCell>
                     <Badge variant="secondary" className={`capitalize ${assign.status}`}>
                       {STATUS[assign.status]}
                     </Badge>
                   </TableCell>
-                  <TableCell>{new Date(assign.due_date).toLocaleDateString()}</TableCell>
+                  <TableCell>{assign.due_date?.toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">
                       <Button variant="outline" size="sm">
@@ -54,13 +53,14 @@ export default async function AsignacionesPage() {
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+                </TableRow >
+              ))
+              }
+            </TableBody >
+          </Table >
+        </div >
         <Pagination totalItems={10} />
-      </CardContent>
-    </Card>
+      </CardContent >
+    </Card >
   )
 }

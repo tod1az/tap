@@ -17,7 +17,7 @@ export const STATUS = {
   [$Enums.Status.overdue]: "vencida"
 } as const
 
-export type StatusKey = keyof typeof $Enums.Status
+export type StatusKey = (keyof typeof $Enums.Status)
 
 export const PER_PAGE = 10
 export const OFFSET = (pageNumber: string) => (+pageNumber - 1) * PER_PAGE
