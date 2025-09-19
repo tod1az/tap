@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { Input } from "./ui/input";
 
-export default function SearchBar() {
+export default function SearchBar({ item }: { item: string }) {
 
   const [searchTerm, setSearchTerm] = useState("")
   const { setQuery } = useFilters()
@@ -32,7 +32,7 @@ export default function SearchBar() {
     <div className="flex items-center space-x-2 mb-4">
       <Search className="h-4 w-4 text-muted-foreground" />
       <Input
-        placeholder="Buscar items por nombre..."
+        placeholder={`Buscar ${item} por nombre...`}
         value={searchTerm}
         onChange={handleSearchChange}
         className="max-w-sm"

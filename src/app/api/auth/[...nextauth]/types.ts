@@ -4,6 +4,7 @@ export interface CustomAuthUser extends User {
   id: string;
   email: string
   name: string
+  lastname: string
   role: string
 }
 

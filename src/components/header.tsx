@@ -15,7 +15,7 @@ export default async function Header() {
           <h1 className="text-2xl font-bold text-primary">Sistema de Gestión Empresarial</h1>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">
-              Bienvenido, <span className="font-medium text-foreground">{session.user?.name}</span>
+              Bienvenido, <span className="font-medium texr-foreground">{session.user?.name} {session.user?.lastname}</span>
             </span>
             <LogOutButton />
           </div>

@@ -8,6 +8,10 @@ import DeleteItem from "@/components/items/delete-item"
 import EditItemDialog from "@/components/items/edit-item"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
+import NewEntryDialog from "@/components/items/new-entry-dialog"
+import ItemLossEntry from "@/components/items/new-loss-entry"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/options"
 
 
 type Props = {
@@ -15,6 +19,7 @@ type Props = {
 }
 
 export default async function ItemsManagement({ searchParams }: Props) {
+
 
   const { q, page } = await searchParams
 
@@ -31,7 +36,7 @@ export default async function ItemsManagement({ searchParams }: Props) {
         <CardDescription>Administra el inventario de items de la empresa</CardDescription>
       </CardHeader>
       <CardContent>
-        <SearchBar />
+        <SearchBar item="items" />
         <ItemsTable items={items} />
         <Pagination totalItems={count} />
       </CardContent>
@@ -43,7 +48,10 @@ type TableProps = {
   items: Item[]
 }
 
-function ItemsTable({ items }: TableProps) {
+async function ItemsTable({ items }: TableProps) {
+
+  const session = await getServerSession(authOptions)
+  const role = session?.user?.role
   return (
     <div className="rounded-md border">
       <Table>
@@ -67,8 +75,17 @@ function ItemsTable({ items }: TableProps) {
               <TableCell>${item.price}</TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
-                  <EditItemDialog item={item} />
-                  <DeleteItem item={item} />
+                  <ItemLossEntry item={item} />
+                  <NewEntryDialog item={item} />
+                  {
+                    role === "admin"
+                      ? (
+                        <>
+                          <EditItemDialog item={item} />
+                          <DeleteItem item={item} />
+                        </>
+                      ) : null
+                  }
                 </div>
               </TableCell>
             </TableRow>

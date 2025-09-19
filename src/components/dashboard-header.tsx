@@ -3,12 +3,14 @@ import clsx from "clsx"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { navigationItems } from "@/lib/consts"
+import { useSession } from "next-auth/react"
 
 export default function DashboardHeader() {
 
   const path = usePathname()
   const searchParams = useSearchParams()
   const queryParams = searchParams ? `?${searchParams.toString()}` : ""
+  const { data: session } = useSession()
 
   function pathSelected(href: string) {
     return path === href
@@ -18,6 +20,7 @@ export default function DashboardHeader() {
     <div className="container mx-auto px-4">
       <div className="flex space-x-0">
         {navigationItems.map((item) => {
+          if (session?.user?.role === "user" && item.href === "/dashboard/empleados") return null
           const Icon = item.icon
           return (
             <Link

@@ -61,6 +61,16 @@ export const assignmentSchema = z.object({
 
 export type AssignmentFormData = z.infer<typeof assignmentSchema>;
 
+export const updateAssignSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  status: z.string().optional(),
+})
+
+
+export type UpdateAssignForm = z.infer<typeof updateAssignSchema>
+
+
 //Employees
 
 export const employeeSchema = z.object({

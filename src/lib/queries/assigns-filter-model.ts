@@ -1,18 +1,16 @@
 import { StatusKey } from "../consts";
 
-export type FilterStatusArgs = StatusKey | "outdate" | undefined
-
-
-export function statusFilter(status: FilterStatusArgs) {
+export function statusFilter(status?: string) {
+  if (!status) return {}
   const now = Date.now()
-  if (status === "outdate") {
+  if (status === "overdue") {
     return {
       due_date: {
-        lt: String(now)
+        lt: new Date(now)
       }
     }
   }
   return {
-    status
+    status: status as StatusKey
   }
 }

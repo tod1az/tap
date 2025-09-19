@@ -13,7 +13,8 @@ export const navigationItems = [
 export const STATUS = {
   [$Enums.Status.pending]: "pendiente",
   [$Enums.Status.in_progress]: "en progreso",
-  [$Enums.Status.completed]: "completada"
+  [$Enums.Status.completed]: "completada",
+  [$Enums.Status.overdue]: "vencida"
 } as const
 
 export type StatusKey = (keyof typeof $Enums.Status)
