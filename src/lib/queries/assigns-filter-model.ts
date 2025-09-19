@@ -1,4 +1,7 @@
-import { StatusKey } from "../consts";
+
+import { $Enums } from "@/generated/prisma/client"
+
+export type StatusKey = keyof (typeof $Enums.Status)
 
 export function statusFilter(status?: string) {
   if (!status) return {}

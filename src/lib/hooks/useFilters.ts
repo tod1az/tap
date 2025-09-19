@@ -1,6 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { StatusKey } from "../consts";
 
 export function useFilters() {
 
@@ -31,7 +30,7 @@ export function useFilters() {
     router.replace(`${path}?${params}`)
   }
 
-  function setStatus(status?: StatusKey) {
+  function setStatus(status?: string) {
     if (!status) {
       params.delete("status")
     } else {

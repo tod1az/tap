@@ -35,6 +35,7 @@ export default function NewAssignmentModal({ employee }: Props) {
       setIsAddAssignmentModalOpen(false);
       reset();
     } catch (error) {
+      console.log(error)
       setError("root", { message: "Error al crear la asignacion" })
     }
   };

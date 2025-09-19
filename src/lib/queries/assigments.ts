@@ -1,9 +1,9 @@
-import { OFFSET, PER_PAGE } from "../consts";
+import { OFFSET, PER_PAGE } from "../sv-utils";
 import prisma from "../prisma-client";
 import { CreateAssignsParameters } from "../types";
 import { statusFilter } from "./assigns-filter-model";
 import { Data } from "../actions/assignments";
-import { Status } from "@/generated/prisma";
+import { Status } from "@/generated/prisma/client";
 import { UpdateAssignForm } from "../zod-schemas";
 
 

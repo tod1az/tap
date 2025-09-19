@@ -1,7 +1,7 @@
 "use client"
-import { Status } from "@/generated/prisma";
+import { Status } from "@/generated/prisma/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { STATUS } from "@/lib/consts";
+import { STATUS } from "@/lib/sv-utils";
 import { useSession } from "next-auth/react";
 import { updateAssignUserAction } from "@/lib/actions/assignments";
 import { Badge } from "../ui/badge";

@@ -21,6 +21,7 @@ export default function DeleteItem({ item }: Props) {
       setIsDeleting(true)
       await deleteItemAction(id)
     } catch (err) {
+      console.log(err)
       console.error("Something went wrong while deleting the item")
     } finally {
       setIsDeleting(false)

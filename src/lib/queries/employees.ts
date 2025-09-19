@@ -1,5 +1,5 @@
 import prisma from "../prisma-client";
-import { OFFSET, PER_PAGE } from "../consts";
+import { OFFSET, PER_PAGE } from "../sv-utils";
 import { hashPassword } from "@/app/api/auth/[...nextauth]/utils";
 import { EmployeeFormData, UpdateEmployeeData } from "../zod-schemas";
 

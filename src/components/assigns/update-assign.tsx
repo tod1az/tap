@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { STATUS } from "@/lib/consts"
+import { STATUS } from "@/lib/sv-utils"
 import { Button } from "../ui/button"
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import { Edit } from "lucide-react"

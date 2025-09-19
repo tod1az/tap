@@ -1,4 +1,4 @@
-import { Status } from "@/generated/prisma";
+import { Status } from "@/generated/prisma/client";
 import { AssignmentFormData } from "./zod-schemas";
 
 export type Item = {

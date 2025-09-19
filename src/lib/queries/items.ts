@@ -1,5 +1,5 @@
 import prisma from "../prisma-client";
-import { PER_PAGE, OFFSET } from "../consts";
+import { PER_PAGE, OFFSET } from "../sv-utils";
 import { EditItemFormData, ItemFormData } from "../zod-schemas";
 
 export function getItems(q: string, page: string) {

@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { useFilters } from "@/lib/hooks/useFilters"
-import { STATUS, StatusKey } from "@/lib/consts"
+import { STATUS } from "@/lib/sv-utils"
 
 export default function StatusFilter() {
 
@@ -14,7 +14,7 @@ export default function StatusFilter() {
   const [selectedStatus, setSelectedStatus] = useState(statusFilter)
   const { setStatus } = useFilters()
 
-  function handleStatusFilterChange(value: StatusKey | "all") {
+  function handleStatusFilterChange(value: string) {
     setSelectedStatus(value)
     if (value === "all") setStatus()
     else setStatus(value)
