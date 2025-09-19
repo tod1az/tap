@@ -1,7 +1,7 @@
 import prisma from "../prisma-client";
 import { OFFSET, PER_PAGE } from "../consts";
 import { hashPassword } from "@/app/api/auth/[...nextauth]/utils";
-import { EmployeeFormData, UpdateEmployeeData, UpdateEmployeeFormData } from "../zod-schemas";
+import { EmployeeFormData, UpdateEmployeeData } from "../zod-schemas";
 
 export function getEmployees(q: string, page: string) {
   const pageNumber = page ?? "1"

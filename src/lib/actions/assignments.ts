@@ -14,6 +14,7 @@ export async function createAssignAction(data: CreateAssignsParameters) {
     await createAssigment(data)
     revalidatePath("/dashboard/empleados")
   } catch (err) {
+    console.log(err)
     throw Error("Error creando la asignación")
   }
 }

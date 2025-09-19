@@ -16,6 +16,7 @@ export async function createItemAction(item: ItemFormData) {
     await createItem(item)
     revalidatePath(ITEMS_PATH)
   } catch (err) {
+    console.log(err)
     throw Error("Error al crear el ítem")
   }
 }
@@ -28,6 +29,7 @@ export async function updateItemAction(item: EditItemFormData) {
     await updateItem(item)
     revalidatePath(ITEMS_PATH)
   } catch (err) {
+    console.log(err)
     throw Error("Error al crear el ítem")
   }
 
