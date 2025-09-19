@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { createEntrie, createEntry, createItem, createLoss, deleteItem, updateItem } from "../queries/items"
+import { createEntry, createItem, createLoss, deleteItem, updateItem } from "../queries/items"
 import { EditItemFormData, EditItemSchema, ItemFormData, itemSchema } from "../zod-schemas"
 import { auth, checkAdmin } from "./utils"
 
@@ -49,6 +49,7 @@ export async function createItemEntryAction(data: { stock: number, item_id: numb
     revalidatePath(ITEMS_PATH)
     revalidatePath("/dashboard/entradas")
   } catch (err) {
+    console.log(err)
     throw Error("Error al crear la entrada")
   }
 }
@@ -62,6 +63,7 @@ export async function createItemLossAction(data: { stock: number, item_id: numbe
     revalidatePath(ITEMS_PATH)
     revalidatePath("/dashboard/entradas")
   } catch (err) {
+    console.log(err)
     throw Error("Error al registrar la merma")
   }
 }
