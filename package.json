@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm exec prisma generate  && next build --turbopack",
+    "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall":"prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
