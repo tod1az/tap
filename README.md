@@ -108,11 +108,20 @@ La aplicación estará disponible en `http://localhost:3000`
 │   ├── components/       # Componentes React reutilizables
 │   ├── generated/        # Archivos generados automáticamente
 │   ├── lib/             # Utilidades y configuraciones
+│   │   ├── actions/     # Server Actions de Next.js
+│   │   ├── hooks/       # Custom React Hooks
+│   │   ├── queries/     # Consultas a la base de datos
+│   │   ├── consts.ts    # Constantes de la aplicación
+│   │   ├── prisma-client.ts  # Cliente de Prisma configurado
+│   │   ├── sv-utils.ts  # Utilidades del servidor
+│   │   ├── types.ts     # Definiciones de tipos TypeScript
+│   │   ├── utils.ts     # Funciones utilitarias generales
+│   │   └── zod-schemas.ts    # Esquemas de validación con Zod
 │   └── providers/       # Context providers y configuraciones
 ├── .env                 # Variables de entorno
 ├── .gitignore          # Archivos ignorados por Git
-└── .pnpmfile.cjs       # Configuración de pnpm
-```
+└── .pnpmfile.cjs
+``
 
 ## 🎯 Scripts Disponibles
 
