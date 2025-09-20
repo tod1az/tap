@@ -121,7 +121,7 @@ La aplicación estará disponible en `http://localhost:3000`
 ├── .env                 # Variables de entorno
 ├── .gitignore          # Archivos ignorados por Git
 └── .pnpmfile.cjs
-``
+```
 
 ## 🎯 Scripts Disponibles
 
