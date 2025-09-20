@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import SearchBar from "@/components/search-bar"
 import Pagination from "@/components/pagination"
-import { getAssignsByUser, getAssignsByUserCount, getAssings, getAssingsCount } from "@/lib/queries/assigments"
+import { getAssignsByUser, getAssignsByUserCount, getAssings, getAssingsCount } from "@/lib/queries/assigns"
 import StatusFilter from "@/components/assigns/assigns-filter"
 import { SearchParams } from "@/lib/types"
 import UpdateAssign from "@/components/assigns/update-assign"
