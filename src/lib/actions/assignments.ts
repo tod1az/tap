@@ -1,7 +1,6 @@
 "use server"
-
 import { revalidatePath } from "next/cache";
-import { createAssigment, updateAssign, updateStatusAssign } from "../queries/assigments";
+import { createAssigment, updateAssign, updateStatusAssign } from "../queries/assigns";
 import { CreateAssignsParameters } from "../types";
 import { assignmentSchema, UpdateAssignForm, updateAssignSchema } from "../zod-schemas";
 import { checkAdmin, checkUser } from "./utils";
