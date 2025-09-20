@@ -130,6 +130,7 @@ La aplicación estará disponible en `http://localhost:3000`
 pnpm dev                  # Inicia el servidor de desarrollo
 pnpm build               # Construye la aplicación para producción
 pnpm start               # Inicia el servidor de producción
+```
 
 - **Desarrollador Principal**: Tomás Díaz (https://github.com/tod1az)
 
